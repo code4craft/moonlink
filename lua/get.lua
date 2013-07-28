@@ -17,6 +17,22 @@ if not ok then
     return
 end
 
+local args = ngx.req.get_uri_args()
+local short = args["short"]
+if not short then
+    ngx.status = 400
+    ngx.say("Please specific url!")
+    return
+end
+
+local res, err = red:get(short)
+ngx.log(ngx.INFO, short)
+if res == ngx.null then
+    ngx.status = 404
+    ngx.say("Url not exist!")
+else
+    ngx.say(res)
+end
 
 -- keepalive
 local ok,err = red:set_keepalive(0,100)

@@ -9,7 +9,7 @@
 local redis = require"resty.redis"
 local red = redis:new()
 local server = "127.0.0.1"
-local host = "http://127.0.0.1/"
+local host = "http://127.0.0.1:8080/"
 
 --connect
 red:set_timeout(1000) -- 1 sec
@@ -26,7 +26,7 @@ end
 length = 7
 
 function short(url)
-    local shortUrl = ngx.md5(url):sub(0, length)
+    local shortUrl = ngx.md5(url):sub(1, length)
     return shortUrl
 end
 
